@@ -6,11 +6,13 @@ import java.util.List;
 
 import se.anjolo.salessystem.customer.Customer;
 import se.anjolo.salessystem.customer.CustomerSegment;
+import se.anjolo.salessystem.customer.ServiceConcept;
 import se.anjolo.salessystem.offering.Offering;
 import se.anjolo.salessystem.pricing.InterestbasedPriceConfig;
 import se.anjolo.salessystem.pricing.PriceConfig;
 import se.anjolo.salessystem.pricing.PriceConfig.PaymentInterval;
 import se.anjolo.salessystem.pricing.SubscriptionPriceConfig;
+
 
 public class SalesSystemDB {
     private static SalesSystemDB instance;
@@ -40,8 +42,10 @@ public class SalesSystemDB {
 
 
     private void createCustomerDatabase() {
-        customers.add(new Customer("Custoemr1", CustomerSegment.PRIVATE));
-        customers.add(new Customer("Custoemr2", CustomerSegment.PRIVATE));
+        customers.add(new Customer("Customer1", CustomerSegment.PRIVATE, ServiceConcept.NYCKELKUND, true, false, false));
+        customers.add(new Customer("Customer2", CustomerSegment.PRIVATE, ServiceConcept.PREMIUM, false, false, false));
+        customers.add(new Customer("Customer3", CustomerSegment.PRIVATE, ServiceConcept.PB, false, false, false));
+        customers.add(new Customer("Customer4", CustomerSegment.PRIVATE, ServiceConcept.NO_CONCEPT, false, true, false));
     }
 
     private void createDatabase() {

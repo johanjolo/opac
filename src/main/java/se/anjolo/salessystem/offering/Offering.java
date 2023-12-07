@@ -4,8 +4,10 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
+import jakarta.persistence.Transient;
 import lombok.Data;
 import lombok.Getter;
+import se.anjolo.salessystem.pricing.DiscountStructure;
 import se.anjolo.salessystem.pricing.PriceConfig;
 
 // @Entity
@@ -16,15 +18,22 @@ public class Offering {
     @GeneratedValue(strategy = GenerationType.UUID) */
     private UUID id;
     
+    
     private String name;
     private String description;
     private LocalDate validFrom;
     private LocalDate validTo;
     
+    //listprice and a discount structure
+    private PriceConfig listprice;
+    private DiscountStructure discountStructure;
+
+    // list of alternative price configurations, e.g campaign prices
     @Getter
     private List<PriceConfig> priceConfigurations;
-    private OfferingInstantiator offeringInstantiator;
     
+    // The offeringInstantiator is the class that knows how to instantiate the offering
+    private OfferingInstantiator offeringInstantiator;
 
     public Offering(String name, String description, LocalDate validFrom, LocalDate validTo) {
         this.id = UUID.randomUUID();
@@ -37,6 +46,7 @@ public class Offering {
     public Offering() {
         this.id = UUID.randomUUID();
     }
+
 
     public void addPriceConfig(PriceConfig priceConfig) {
         priceConfigurations.add(priceConfig);
