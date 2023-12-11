@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
-import jakarta.persistence.Transient;
 import lombok.Data;
 import lombok.Getter;
 import se.anjolo.salessystem.pricing.DiscountStructure;
