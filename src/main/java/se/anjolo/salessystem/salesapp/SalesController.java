@@ -39,7 +39,7 @@ public class SalesController {
  * @return
  */
   @GetMapping("/sales/offerings")
-  List<Offering> listDatasets() {
+  List<Offering> listOfferings() {
     logger.info("Request for all offerings (GET /sales/offerings)");
 
     return offeringService.getOfferings();
@@ -51,7 +51,7 @@ public class SalesController {
    * @return
    */
   @GetMapping("/sales/price/{offeringid}")
-  PriceConfig getPriceData(@PathVariable("offeringid") UUID offeringId, @RequestParam UUID customerId, @RequestParam int transactionVolume) {
+  PriceConfig getBestPriceForOffering(@PathVariable("offeringid") UUID offeringId, @RequestParam UUID customerId, @RequestParam int transactionVolume) {
     logger.info("Requesting price (GET /sales/price/offeringid)) with id: {} for customer: {} with volume request: {}", offeringId, customerId, transactionVolume);
 
     TransactionVolumeServiceDemand transactionVolumeServiceDemand = new TransactionVolumeServiceDemand(transactionVolume);

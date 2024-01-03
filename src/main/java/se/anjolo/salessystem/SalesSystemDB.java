@@ -3,7 +3,9 @@ package se.anjolo.salessystem;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
+import se.anjolo.salessystem.agreement.Agreement;
 import se.anjolo.salessystem.customer.Customer;
 import se.anjolo.salessystem.customer.CustomerSegment;
 import se.anjolo.salessystem.customer.ServiceConcept;
@@ -20,6 +22,7 @@ public class SalesSystemDB {
     List<Offering> offerings = new ArrayList<Offering>();
     List<PriceConfig> priceconfigs = new ArrayList<PriceConfig>();
     List<Customer> customers = new ArrayList<Customer>();
+    List<Agreement> agreements = new ArrayList<Agreement>();
 
     public static SalesSystemDB getInstance() {
         if (instance == null) {
@@ -39,6 +42,20 @@ public class SalesSystemDB {
 
     public List<PriceConfig> getPriceconfigurations() {
         return priceconfigs;
+    }
+
+
+    public List<Customer> getCustomers() {
+        return customers;
+    }
+
+
+    public Agreement addAgreement(UUID customerId, Agreement agreement) {
+        return agreement;
+    }
+
+    public List<Agreement> getAgreements(UUID customerId) {
+        return agreements;
     }
 
 
@@ -78,7 +95,6 @@ public class SalesSystemDB {
         priceconfigs.add(offering1.getPriceConfigurations().get(0));
         priceconfigs.add(offering2.getListprice());
         priceconfigs.add(offering2.getPriceConfigurations().get(0));
-
 
     }
 
