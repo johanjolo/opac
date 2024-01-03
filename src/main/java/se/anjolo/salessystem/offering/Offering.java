@@ -12,26 +12,29 @@ import se.anjolo.salessystem.pricing.PriceConfig;
 // @Entity
 @Data
 public class Offering {
-    
- /*    @Id
-    @GeneratedValue(strategy = GenerationType.UUID) */
+
+    /*
+     * @Id
+     * 
+     * @GeneratedValue(strategy = GenerationType.UUID)
+     */
     private UUID id;
-    
-    
+
     private String name;
     private String description;
     private LocalDate validFrom;
     private LocalDate validTo;
-    
-    //listprice and a discount structure
+
+    // listprice and a discount structure
     private PriceConfig listprice;
     private DiscountStructure discountStructure;
 
     // list of alternative price configurations, e.g campaign prices
     @Getter
-    private List<PriceConfig> priceConfigurations;
-    
-    // The offeringInstantiator is the class that knows how to instantiate the offering
+    private List<PriceConfig> priceConfigurations = new java.util.ArrayList<PriceConfig>();
+
+    // The offeringInstantiator is the class that knows how to instantiate the
+    // offering
     private OfferingInstantiator offeringInstantiator;
 
     public Offering(String name, String description, LocalDate validFrom, LocalDate validTo) {
@@ -42,10 +45,20 @@ public class Offering {
         this.validTo = validTo;
     }
 
+    public Offering(String name, String description, LocalDate validFrom, LocalDate validTo, PriceConfig listprice,
+            DiscountStructure discountStructure) {
+        this.id = UUID.randomUUID();
+        this.name = name;
+        this.description = description;
+        this.validFrom = validFrom;
+        this.validTo = validTo;
+        this.listprice = listprice;
+        this.discountStructure = discountStructure;
+    }
+
     public Offering() {
         this.id = UUID.randomUUID();
     }
-
 
     public void addPriceConfig(PriceConfig priceConfig) {
         priceConfigurations.add(priceConfig);

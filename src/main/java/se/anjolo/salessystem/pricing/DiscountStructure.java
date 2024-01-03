@@ -16,6 +16,17 @@ public class DiscountStructure {
     Float studentDiscount;
     Float seniorDiscount;
 
+    public DiscountStructure(float privateCustomerDiscount, float corporateCustomerDiscount, float nyckelkundDiscount, float premiumDiscount, float pbDiscount, float studentDiscount, float seniorDiscount) {
+        customerSegmentDiscounts.put(CustomerSegment.PRIVATE, privateCustomerDiscount);
+        customerSegmentDiscounts.put(CustomerSegment.CORPORATE, corporateCustomerDiscount);
+
+        serviceConceptDiscounts.put(ServiceConcept.NYCKELKUND, nyckelkundDiscount);
+        serviceConceptDiscounts.put(ServiceConcept.PREMIUM, premiumDiscount);
+        serviceConceptDiscounts.put(ServiceConcept.PB, pbDiscount);
+
+        this.studentDiscount = studentDiscount;
+        this.seniorDiscount = seniorDiscount;
+    }
 
 
 

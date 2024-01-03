@@ -8,6 +8,7 @@ import se.anjolo.salessystem.customer.Customer;
 import se.anjolo.salessystem.customer.CustomerSegment;
 import se.anjolo.salessystem.customer.ServiceConcept;
 import se.anjolo.salessystem.offering.Offering;
+import se.anjolo.salessystem.pricing.DiscountStructure;
 import se.anjolo.salessystem.pricing.InterestbasedPriceConfig;
 import se.anjolo.salessystem.pricing.PriceConfig;
 import se.anjolo.salessystem.pricing.PriceConfig.PaymentInterval;
@@ -54,20 +55,30 @@ public class SalesSystemDB {
 
         // Offering 1
         Offering offering1 = new Offering("Debitcard", "description", now, aBitIntoFuture);
-        priceconfigs.add(new SubscriptionPriceConfig(offering1.getId(), "Listprice", "Standardprice for this product",
+        offering1.setDiscountStructure(new DiscountStructure(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.1f, 0.2f));
+        offering1.setListprice(new SubscriptionPriceConfig(offering1.getId(), "Listprice", "Standardprice for this product",
                 now, aBitIntoFuture, 120, PaymentInterval.Monthly));
-        priceconfigs.add(new SubscriptionPriceConfig(offering1.getId(), "BlackweekCampaignprice",
+     //   priceconfigs.add(new SubscriptionPriceConfig(offering1.getId(), "Listprice", "Standardprice for this product",
+     //           now, aBitIntoFuture, 120, PaymentInterval.Monthly));
+        offering1.addPriceConfig(new SubscriptionPriceConfig(offering1.getId(), "BlackweekCampaignprice",
                 "A campaign for this product", now, aBitIntoFuture, 60, PaymentInterval.Monthly));
 
         // Offering 2
         Offering offering2 = new Offering("Creditcard", "description", now, aBitIntoFuture);
-        priceconfigs.add(new InterestbasedPriceConfig(offering2.getId(), "Listprice", "Standardprice for this product",
+        offering2.setDiscountStructure(new DiscountStructure(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.1f, 0.2f));
+        offering2.setListprice(new InterestbasedPriceConfig(offering2.getId(), "Listprice", "Standardprice for this product",
                 now, aBitIntoFuture, 8.9));
-        priceconfigs.add(new InterestbasedPriceConfig(offering2.getId(), "BlackweekCampaignprice",
+        offering2.addPriceConfig(new InterestbasedPriceConfig(offering2.getId(), "BlackweekCampaignprice",
                 "A campaign for this product", now, aBitIntoFuture, 8.2));
 
         offerings.add(offering1);
         offerings.add(offering2);
+
+        priceconfigs.add(offering1.getListprice());
+        priceconfigs.add(offering1.getPriceConfigurations().get(0));
+        priceconfigs.add(offering2.getListprice());
+        priceconfigs.add(offering2.getPriceConfigurations().get(0));
+
 
     }
 
