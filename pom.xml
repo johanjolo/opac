@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.1.5</version>
+		<version>3.1.7</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>se.anjolo</groupId>
@@ -44,13 +44,9 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-<dependency>
-    <groupId>org.javatuples</groupId>
-    <artifactId>javatuples</artifactId>
-    <version>1.2</version>
-</dependency>
 
 	</dependencies>
+
 
 	<build>
 		<plugins>
@@ -69,6 +65,12 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<plugin>
+   <groupId>com.google.cloud.tools</groupId>
+   <artifactId>appengine-maven-plugin</artifactId>
+   <version>2.4.4</version>
+</plugin>
+
 		</plugins>
 	</build>
 
