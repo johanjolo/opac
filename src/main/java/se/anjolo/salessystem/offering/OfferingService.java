@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lombok.Data;
@@ -13,6 +14,10 @@ import se.anjolo.salessystem.SalesSystemDB;
 @Service    
 @Data
 public class OfferingService {
+
+
+    @Autowired 
+    OfferingRepository offeringRepository;
 
     Logger logger = LoggerFactory.getLogger(OfferingService.class);
 
@@ -38,7 +43,7 @@ public class OfferingService {
     }
 
     public List<Offering> getOfferings() {
-        return SalesSystemDB.getInstance().getOfferings();
+        return (List<Offering>) offeringRepository.findAll();
     }
 
 }

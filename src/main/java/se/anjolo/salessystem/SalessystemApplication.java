@@ -1,6 +1,8 @@
 package se.anjolo.salessystem;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,16 +12,22 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+import se.anjolo.salessystem.agreement.Agreement;
+import se.anjolo.salessystem.agreement.AgreementRepository;
+import se.anjolo.salessystem.customer.Customer;
 import se.anjolo.salessystem.customer.CustomerRepository;
+import se.anjolo.salessystem.customer.CustomerSegment;
+import se.anjolo.salessystem.customer.ServiceConcept;
 import se.anjolo.salessystem.offering.DiscountStructure;
 import se.anjolo.salessystem.offering.InterestbasedPriceConfig;
 import se.anjolo.salessystem.offering.Offering;
 import se.anjolo.salessystem.offering.OfferingRepository;
-import se.anjolo.salessystem.offering.SubscriptionPriceConfig;
+import se.anjolo.salessystem.offering.PriceConfig;
 import se.anjolo.salessystem.offering.PriceConfig.PaymentInterval;
+import se.anjolo.salessystem.offering.SubscriptionPriceConfig;
 
 @SpringBootApplication
-@EnableJpaRepositories(basePackages = {"se.anjolo.salessystem.customer","se.anjolo.salessystem.offering","se.anjolo.salessystem.pricing"})
+@EnableJpaRepositories(basePackages = {"se.anjolo.salessystem.customer","se.anjolo.salessystem.offering","se.anjolo.salessystem.pricing", "se.anjolo.salessystem.agreement"})
 public class SalessystemApplication implements CommandLineRunner {
 
 	@Autowired
@@ -29,6 +37,9 @@ public class SalessystemApplication implements CommandLineRunner {
 	OfferingRepository offeringRepository;
 
 	
+@Autowired
+AgreementRepository agreementRepository;
+
 	Logger logger = LoggerFactory.getLogger(SalessystemApplication.class);
 
 	public static void main(String[] args) {
@@ -73,9 +84,6 @@ logger.info("offering 2 defined");
 			logger.error("Error saving offering", e);
 		}
 
-
-
-		/* 
 		List<Customer> customers = new ArrayList<Customer>();
 		customers
 				.add(new Customer("Customer1", CustomerSegment.PRIVATE, ServiceConcept.NYCKELKUND, true, false, false));
@@ -89,7 +97,14 @@ logger.info("offering 2 defined");
 		} catch (Exception e) {
 			logger.error("Error saving customers", e);
 		}
-		*/
+
+
+
+		Agreement agreement1 = new Agreement(offering1.getOfferingId(), customers.get(0).getId()
+		, new PriceConfig());
+		agreementRepository.save(agreement1);
+
+		 
 	}
 
 }
