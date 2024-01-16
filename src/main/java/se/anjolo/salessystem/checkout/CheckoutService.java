@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import se.anjolo.salessystem.agreement.Agreement;
 import se.anjolo.salessystem.agreement.AgreementService;
-import se.anjolo.salessystem.pricing.PriceConfig;
+import se.anjolo.salessystem.offering.PriceConfig;
 
 @Service
 public class CheckoutService {

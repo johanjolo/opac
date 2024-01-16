@@ -2,8 +2,6 @@ package se.anjolo.salessystem.offering;
 
 import java.util.List;
 
-import se.anjolo.salessystem.pricing.PriceConfig;
-
 public class BundledOfferingEntity extends Offering {
 
     private List<Offering> bundledOfferings = null;

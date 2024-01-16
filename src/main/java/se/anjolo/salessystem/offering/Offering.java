@@ -4,21 +4,24 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.Data;
-import lombok.Getter;
-import se.anjolo.salessystem.pricing.DiscountStructure;
-import se.anjolo.salessystem.pricing.PriceConfig;
 
-// @Entity
+@Entity
 @Data
 public class Offering {
 
-    /*
-     * @Id
-     * 
-     * @GeneratedValue(strategy = GenerationType.UUID)
-     */
-    private UUID id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID offeringId;
 
     private String name;
     private String description;
@@ -26,19 +29,32 @@ public class Offering {
     private LocalDate validTo;
 
     // listprice and a discount structure
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "listprice_id", referencedColumnName = "id")
     private PriceConfig listprice;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "discountstructure_id", referencedColumnName = "id")
     private DiscountStructure discountStructure;
 
     // list of alternative price configurations, e.g campaign prices
-    @Getter
+    
+    @OneToMany(targetEntity=PriceConfig.class,cascade = CascadeType.ALL, 
+    fetch = FetchType.EAGER, orphanRemoval = true)
     private List<PriceConfig> priceConfigurations = new java.util.ArrayList<PriceConfig>();
 
     // The offeringInstantiator is the class that knows how to instantiate the
     // offering
-    private OfferingInstantiator offeringInstantiator;
+    
+    private String offeringInstantiator;
+
+    public Offering() {
+        // this.offeringId = UUID.randomUUID();
+    }
+
 
     public Offering(String name, String description, LocalDate validFrom, LocalDate validTo) {
-        this.id = UUID.randomUUID();
+        // this.offeringId = UUID.randomUUID();
         this.name = name;
         this.description = description;
         this.validFrom = validFrom;
@@ -47,7 +63,7 @@ public class Offering {
 
     public Offering(String name, String description, LocalDate validFrom, LocalDate validTo, PriceConfig listprice,
             DiscountStructure discountStructure) {
-        this.id = UUID.randomUUID();
+        // this.offeringId = UUID.randomUUID();
         this.name = name;
         this.description = description;
         this.validFrom = validFrom;
@@ -55,11 +71,7 @@ public class Offering {
         this.listprice = listprice;
         this.discountStructure = discountStructure;
     }
-
-    public Offering() {
-        this.id = UUID.randomUUID();
-    }
-
+ 
     public void addPriceConfig(PriceConfig priceConfig) {
         priceConfigurations.add(priceConfig);
     }
@@ -67,4 +79,10 @@ public class Offering {
     public void removePriceConfig(PriceConfig priceConfig) {
         priceConfigurations.remove(priceConfig);
     }
+
+    public String toString() {
+        return "Offering: " + name + " " + description + " " + validFrom + " " + validTo + " " + listprice + " "
+                + discountStructure + " " + priceConfigurations;
+    }    
+    
 }

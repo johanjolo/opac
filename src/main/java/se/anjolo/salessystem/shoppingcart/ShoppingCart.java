@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import lombok.Data;
 import se.anjolo.salessystem.offering.Offering;
-import se.anjolo.salessystem.pricing.PriceConfig;
+import se.anjolo.salessystem.offering.PriceConfig;
 
 @Data
 public class ShoppingCart {

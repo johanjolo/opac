@@ -1,18 +1,24 @@
 package se.anjolo.salessystem.pricing;
 
-import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import se.anjolo.salessystem.SalesSystemDB;
+import se.anjolo.salessystem.offering.Offering;
+import se.anjolo.salessystem.offering.OfferingRepository;
+import se.anjolo.salessystem.offering.PriceConfig;
 
 @Service
 public class PriceService {
 
     Logger logger = LoggerFactory.getLogger(PriceService.class);
+	
+    @Autowired
+	OfferingRepository offeringRepository;
 
     public PriceService() {
         logger.info("PriceService created");
@@ -33,13 +39,22 @@ public class PriceService {
         logger.info("Price reguested for offering: {} for customer: {} with expected volumes: {}", offeringid,
                 customerId, transactionVolumeServiceDemand.getTransactionVolumes());
 
-        List<SubscriptionPriceConfig> configs = this.getPriceConfigsForOffering(offeringid);
-
-        if (configs.size() == 0) {
-            logger.error("No price configuration found for offering: {}", offeringid);
+            Offering offering;
+        // List<SubscriptionPriceConfig> configs = this.getPriceConfigsForOffering(offeringid);
+        Optional optional  = offeringRepository.findById(offeringid);
+        if (!optional.isPresent()) {
+                offering = (Offering) optional.get();
+        } else {
+            logger.error("No offering found for id: {}", offeringid);
             return null;
         }
 
+        /*if (configs.size() == 0) {
+            logger.error("No price configuration found for offering: {}", offeringid);
+            return null;
+        }
+*/
+/* 
         SubscriptionPriceConfig configToReturn = null;
         double lowestPrice = Double.MAX_VALUE;
         for (SubscriptionPriceConfig priceConfig : configs) { // loop through all configs for the offering
@@ -50,15 +65,18 @@ public class PriceService {
                 configToReturn = priceConfig;
             }
         }
-
-        return configToReturn;
+*/
+        // return listprice 
+        return offering.getListprice();
     }
 
+    /* 
     public PriceConfig addPriceConfig(UUID offeringId, PriceConfig priceConfig) {
         // TODO add priceconfig to database
 
         return priceConfig;
     }
+    */
 
     public PriceConfig getPriceConfig(UUID priceConfigId) {
         // TODO get priceconfig from database
@@ -66,7 +84,7 @@ public class PriceService {
         return null;
     }
 
-
+/*
     public List<SubscriptionPriceConfig> getPriceConfigsForOffering(UUID offeringId) {
         List<PriceConfig> priceconfigs = SalesSystemDB.getInstance().getPriceconfigurations();
 
@@ -78,5 +96,5 @@ public class PriceService {
         }
         return configs;
     }
-
+ */
 }

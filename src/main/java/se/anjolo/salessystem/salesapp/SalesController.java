@@ -16,7 +16,7 @@ import se.anjolo.salessystem.agreement.Agreement;
 import se.anjolo.salessystem.checkout.CheckoutService;
 import se.anjolo.salessystem.offering.Offering;
 import se.anjolo.salessystem.offering.OfferingService;
-import se.anjolo.salessystem.pricing.PriceConfig;
+import se.anjolo.salessystem.offering.PriceConfig;
 import se.anjolo.salessystem.pricing.PriceService;
 import se.anjolo.salessystem.pricing.TransactionVolumeServiceDemand;
 

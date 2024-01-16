@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import se.anjolo.salessystem.SalesSystemDB;
-import se.anjolo.salessystem.pricing.PriceConfig;
+import se.anjolo.salessystem.offering.PriceConfig;
 
 @Service
 public class AgreementService {

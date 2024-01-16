@@ -1,12 +1,12 @@
-package se.anjolo.salessystem.pricing;
+package se.anjolo.salessystem.offering;
 
-import java.util.UUID;
 import java.time.LocalDate;
 
+import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.Setter;
 
-
+@Entity
 public class SubscriptionPriceConfig extends PriceConfig    {
 
     @Setter @Getter
@@ -24,11 +24,13 @@ public class SubscriptionPriceConfig extends PriceConfig    {
     // nr of free transactions
 
 
-    public SubscriptionPriceConfig(UUID offeringId, String name, String description, LocalDate validFrom, LocalDate validTo, float price, PaymentInterval paymentInterval) {
-        super(offeringId, name, description, validFrom, validTo);
+    public SubscriptionPriceConfig(String name, String description, LocalDate validFrom, LocalDate validTo, float price, PaymentInterval paymentInterval) {
+        super( name, description, validFrom, validTo);
         this.price = price;
         this.paymentInterval = paymentInterval;
     }
     
-    
+    public SubscriptionPriceConfig() {
+        super();
+    }    
 }
